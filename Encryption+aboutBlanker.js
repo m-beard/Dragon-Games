@@ -21,7 +21,7 @@ async function askPassword() {
   }
 }
 
-var url = "https://17522778-s.codehs.me/menu.html";
+var url = "https://m-beard.github.com/Dragon-Games/menu.html";
 
 function openProxy() {
   console.log('Opening automatically');
