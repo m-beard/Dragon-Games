@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Deck // Standalone Player</title>
+    <style>
+        :root {
+            --bg-main: #06060c;
+            --bg-card: #0d0d1e;
+            --neon-magenta: #ff007f;
+            --text-primary: #ffffff;
+            --text-secondary: #767693;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Retro lines (body::before) removed */
+
+        .layout {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1a1a3a;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--neon-magenta);
+        }
+
+        .main-frame {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .drop-zone {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-card);
+            border: 2px dashed #27274e;
+            border-radius: 12px;
+            padding: 50px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--neon-magenta);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.15);
+        }
+
+        .file-btn {
+            background: linear-gradient(135deg, #ff007f, #b30059);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #viewport-wrapper {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #000;
+            z-index: 10;
+        }
+
+        #flash-target {
+            width: 100%;
+            height: 100%;
+        }
+
+        #hidden-input {
+            display: none;
+        }
+    </style>
+    <!-- Stable Ruffle CDN Bundle -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+    <div class="layout">
+        <header>
+            <h1>Flash Deck Engine</h1>
+        </header>
+        <main class="main-frame">
+            <div class="drop-zone" id="drop-area">
+                <div style="font-size: 3.5rem; margin-bottom: 15px;">⚡</div>
+                <h2 style="margin: 0 0 10px 0; font-size: 1.4rem;">Load Flash Asset</h2>
+                <p style="color: var(--text-secondary); margin: 0 0 20px 0; font-size: 0.9rem;">Drop a raw .swf track file into this module container.</p>
+                <button class="file-btn" onclick="document.getElementById('hidden-input').click()">Browse System</button>
+                <input type="file" id="hidden-input" accept=".swf">
+            </div>
+            <div id="viewport-wrapper">
+                <div id="flash-target"></div>
+            </div>
+        </main>
+    </div>
+    <script type="text/javascript">
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('hidden-input');
+
+        ['dragenter', 'dragover'].forEach(n => {
+            dropArea.addEventListener(n, (e) => {
+                e.preventDefault();
+                dropArea.classList.add('drag-over');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(n => {
+            dropArea.addEventListener(n, (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('drag-over');
+            });
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            if (e.dataTransfer.files.length) initFlash(e.dataTransfer.files[0]);
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length) initFlash(this.files[0]);
+        });
+
+        function initFlash(file) {
+            document.getElementById('viewport-wrapper').style.display = 'block';
+            const target = document.getElementById('flash-target');
+            target.innerHTML = '';
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            player.style.width = "100%";
+            player.style.height = "100%";
+            target.appendChild(player);
+            const blobUrl = URL.createObjectURL(file);
+            player.load({ url: blobUrl, allowScriptAccess: true });
+        }   // --- 1. EXISTING HOME BUTTON --- 
+        const tools = document.createElement('div'); 
+        tools.style.cssText = 'position:fixed; z-index:2147483647; bottom:15px; left:15px;'; 
+        
+        tools.innerHTML = `
+        <style> 
+          #hiddenHome { width: 35px; height: 35px; background: rgba(0, 255, 255, 0.3); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; opacity: 0.4; border: 1px solid #9ec3de; } 
+          #hiddenHome:hover { opacity: 1; background: #00ffff; box-shadow: 0 0 15px #00ffff; } 
+          #hiddenHome span { font-size: 18px; filter: grayscale(100%) brightness(200%); pointer-events: none; } 
+          /* Panic Button Styles */ 
+          #panicButton { position: fixed; top: 10px; right: 10px; z-index: 2147483647; padding: 10px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer; opacity: 0.5; } 
+          #panicButton:hover { opacity: 1; } 
+        </style> 
+        <div id="hiddenHome" title="Return to Lair"><span>&lt;</span></div> 
+        <!-- The Panic Button inserted here --> 
+        <button id="panicButton">Panic! (esc)</button>
+        `; 
+        
+        document.documentElement.appendChild(tools); 
+        
+        // --- 2. EXISTING HOME BUTTON FUNCTIONALITY --- 
+        document.getElementById('hiddenHome').onclick = function() { 
+            window.location.href = 'menu.html'; // Fixed string assignment
+        };
+
+        
+    </script>
+</body>
+</html>

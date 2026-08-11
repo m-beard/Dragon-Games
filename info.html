@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+
+   <style>
+  body {
+    background: #0a0a12;
+    color: #ee9d07;
+    font-family: 'Georgia', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    /* Ensures text doesn't touch edges on small screens */
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  h1 {
+    color: #9ec3de;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    /* Added text-align to center */
+    text-align: center;
+  }
+  button {
+    padding: 20px 50px;
+    background: #ee9d07;
+    color: white;
+    border: 2px solid #9ec3de;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(238, 157, 7, 0.5);
+    margin-bottom: 15px; /* Added spacing between buttons */
+  }
+  button:hover {
+    transform: scale(1.1);
+    background: #ffae1a;
+    box-shadow: 0 0 30px #ee9d07;
+  }
+  .hint {
+    margin-top: 20px;
+    color: #9ec3de;
+    opacity: 0.6;
+    font-size: 1.5rem; /* Reduced slightly for better readability */
+    text-align: center; /* Centers text within the div */
+    max-width: 800px; /* Limits width so it doesn't span full screen */
+    margin-bottom: 30px;
+  }
+</style>
+    <div class=hint>Dragon Games Updates Frequently! When playing a game, a blue circle will appear in the bottom-left corner. This button takes you back to the main Hub. 
+    We have an "escape key" or a "boss key". To use this press AND HOLD esc. Game requests are allowed, as long as the game is PG or less.
+    If you want to learn more, please see the Dragon Support Desk
+    </div>
+     <button class="button" onclick="window.location.href='menu.html'">Back to Hub</button>

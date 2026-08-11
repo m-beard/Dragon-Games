@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF EXPLAINATION</title>
+    <style>
+        body {
+            background: #0a0a12;
+            color: #ee9d07;
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #9ec3de;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .hint {
+            margin-bottom: 40px;
+            padding: 0 20px;
+            color: #9ec3de;
+            opacity: 0.8;
+            font-size: 1.5rem;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.4;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 20px 50px;
+            background: #ee9d07;
+            color: white;
+            border: 2px solid #9ec3de;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 20px rgba(238, 157, 7, 0.4);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #ffae1a;
+            box-shadow: 0 0 30px #ee9d07;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #9ec3de;
+            font-size: 1.2rem;
+            box-shadow: none;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(158, 195, 222, 0.1);
+            box-shadow: 0 0 15px rgba(158, 195, 222, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SWF EXPLANATION</h1>
+
+    <div class="hint">
+        We have <a href="https://drive.google.com/drive/folders/15HCaVV1mb16CWNXX5rD_yZwKkXf3YRVM?usp=drive_link" target="_blank">game files</a>  that are in an SWF Format. Basically, we can't build it into the site. We can give you access to the files, and then <strong>you</strong> can use a <a href="ruffle.html" target="_blank">file translator</a>
+to upload the file  and play the game.
+        <br><br>
+        We are sorry for this inconvieniance and hope you enjoy our site
+    </div>
+
+    <div class="button-container">
+        <!-- Opens in New Tab -->
+        <button onclick="window.open('https://drive.google.com/drive/folders/15HCaVV1mb16CWNXX5rD_yZwKkXf3YRVM?usp=drive_link', '_blank')">
+            Get Game Files
+        </button>
+
+        <!-- Navigates in Same Tab -->
+        <button class="secondary-btn" onclick="window.location.href='menu.html'">
+            Back to Hub
+        </button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div id="fire-container"></div>
+    
+    <meta charset="UTF-8">
+    <title>DG. GO FOR LAUNCH.</title>
+    
+    
+
+<body>
+<style>
+        :root {
+            --tan: #ee9d07;
+            --blue: #9ec3de;
+            --cyan: #00ffff;
+            --dark: #0d1117;
+        }
+
+        body {
+            margin: 0;
+            padding: 50px 0;
+            background: linear-gradient(to top, #ff0000, var(--dark), var(--dark));
+            color: white;
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            /* Scrollbar */
+            overflow-y: scroll;
+        }
+
+
+        /* Animated Pegboard Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* Edit '2px' to change circle diameter */
+            background-image: radial-gradient(var(--blue) 2px, transparent 2px);
+            background-size: 40px 40px;
+            z-index: -1;
+            animation: pulseDots 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulseDots {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: var(--tan);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(238, 157, 7, 0.6);
+        }
+
+        .motto {
+            color: var(--blue);
+            font-style: italic;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            justify-content: center;
+            margin: 0;
+            align-content: center;
+            align-items: center;
+        }
+
+        /* Search Bar */
+        .search-container {
+            width: 400px;
+            margin-bottom: 40px;
+        }
+        #gameSearch {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid var(--blue);
+            background: rgba(10, 10, 18, 0.9);
+            color: var(--cyan);
+            outline: none;
+            transition: 0.3s;
+        }
+        #gameSearch:focus { border-color: var(--tan); box-shadow: 0 0 15px var(--tan); }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .grid button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--blue);
+            color: var(--cyan);
+            padding: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .grid button:hover {
+            color: var(--tan);
+            border-color: var(--tan);
+            transform: scale(1.05);
+            animation: breath 1.5s infinite alternate;
+        }
+        button { padding: 20px 50px; background: transparent; color: white; border: 2px solid #9ec3de; border-radius: 12px; cursor: pointer; font-size: 1.8rem; font-weight: bold; transition: 0.3s; box-shadow: 0 0 20px rgba(238, 157, 7, 0.5); }
+        button:hover { transform: scale(1.1); background: #ffae1a; box-shadow: 0 0 30px #ee9d07; }
+
+        @keyframes breath {
+            from { box-shadow: 0 0 10px rgba(238, 157, 7, 0.4); }
+            to { box-shadow: 0 0 30px rgba(238, 157, 7, 0.8); }
+        
+        }
+        @keyframes fireFloat {
+            from { bottom: 0px; }
+            to { bottom: 110%; }
+        }
+        .fire {
+            position: absolute;
+            z-index: 1;
+            background-color: orange;
+            border-radius: 50%;
+            animation: fireFloat linear infinite;
+        }
+
+        .elfsight-app-ab41edbd-2e2e-4b55-83cb-3b600a3cbeb4 {
+            background: rgba(0, 0, 0, 0.5) !important; /* Black with 50% opacity */
+        }
+        .bottom-bar {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background-color: var(--dark);
+          display: flex;
+          justify-content: space-around; /* Distributes buttons evenly */
+          padding: 10px 0;
+          z-index: 1000; /* Keeps bar above other content */
+        }
+        
+        .bar-button {
+          background-color: var(--tan);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+        
+        .bar-button:hover {
+          background-color: var(--blue); /* Hover effect for better UX */
+        }
+
+</style>
+    
+    <h1>DRAGON GAMES</h1>
+        <h2>PLEASE VIEW THE FILE ARCHIVE USING THE SEARCH BAR!</h2>
+        <h3>Fill out the Daily Poll!</h3>
+    <div>
+            </div>
+    
+
+
+<script>
+function openSite() {
+    // 1. Set password
+    var password = "15=15^2";
+    
+    // 2. Ask the user for the password
+    var response = prompt("Enter the Secret Passphrase to Enter the Lair:");
+    
+    if (response === password) {
+        // 3. If correct, open the site in a new tab
+        window.open("menu.html", "_blank");
+    } else {
+        // 4. If wrong, give an alert
+        alert("Access Denied! The dragons are not pleased.");
+    }
+}
+
+function createFire() {
+    var colorArray = ["#ffa812", "#F2920A"]
+    var randomColor = Math.floor(Math.random() * colorArray.length);
+  const container = document.getElementById('fire-container');
+  for (let i = 0; i < 20; i++) {
+    randomColor = Math.floor(Math.random() * colorArray.length);
+    const fire = document.createElement('div');
+    fire.className = 'fire';
+    fire.style.width = Math.random() * 10 + 10 + 'px';
+    fire.style.height = fire.style.width;
+    fire.style.left = Math.random() * 100 + 'vw';
+    fire.style.backgroundColor = colorArray[randomColor];
+    fire.style.animationDuration = Math.random() * 10 + 5 + 's';
+    fire.style.animationDelay = Math.random() * 5 + 's';
+    fire.style.opacity = Math.random() * 0.9 + 0.1;
+    container.appendChild(fire);
+  }
+} // done with fire just i dont know how ot efficiently get rid of extra lag but in the for let thing. the i < '4' controlls the amount
+createFire();
+</script>
+    <!-- The button that triggers the cloak -->
+    <p class="hint"></p>
+    <button onclick="askPassword()">ENTER THE LAIR</button>
+    <script src="Encryption+aboutBlanker.js"></script>
+    <p class="hint">Opens in a cloaked about:blank tab</p>
+
+<script>         
+// --- ADDED FAVICON LOGIC ---
+// Create the link element
+var link = win.document.createElement('link');
+link.rel = 'icon';
+link.type = 'image/png';
+// Replace 'BASE64STINGHERE' with actual string
+link.href = 'BASE64STRINGHERE';
+win.document.head.appendChild(link);
+// ---------------------------
+
+</script>
+<div class="hint">Visitor Counter</div>
+<div align=center><img src='https://www.counter12.com/img-ZWDb93B2WDBc5Z44-1.gif' border='0' alt='counter'><script type='text/javascript' src='https://www.counter12.com/ad.js?id=ZWDb93B2WDBc5Z44'></script></div>
+
+</body>
+</html>
