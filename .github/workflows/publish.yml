@@ -1,16 +1,25 @@
 name: Publish to npm
+
 on:
   release:
-    types: [created]
+    types: [published]
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # This block gives GitHub permission to ask npm for a short-term secure token
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: '20'
           registry-url: 'https://npmjs.org'
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish Package to npm Registry
+        run: npm publish --provenance
